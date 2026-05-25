@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  ResponsiveContainer,
   AreaChart,
   Area,
   XAxis,
@@ -96,11 +97,37 @@ export default function DataViz() {
   const totalOrdersVal = activePoints.reduce((sum, p) => sum + p.orders, 0);
   const totalUsersVal = activePoints[activePoints.length - 1]?.users || 0;
 
+  const handleExportLedger = () => {
+    const csvRows = [
+      ['Metric', 'Value'],
+      ['Category Name', selectedCategory],
+      ['Segment Value ($)', activeCategoryInfo.value.toString()],
+      ['Catalog Share (%)', activeCategoryInfo.percentage.toString()],
+      ['Growth Forecast', '+24%'],
+      ['Export Date', new Date().toISOString().split('T')[0]],
+    ];
+
+    const csvContent = csvRows
+      .map(row => row.map(val => `"${val.replace(/"/g, '""')}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `segment_ledger_${selectedCategory.toLowerCase().replace(/[^a-z0-9]+/g, '_')}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="w-full bg-slate-50 min-h-screen pt-28 pb-20 px-margin-mobile md:px-margin-desktop text-slate-800 font-sans">
 
       {/* Standalone Project Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-slate-200 px-4 md:px-6 py-3.5 md:py-4 flex items-center justify-between text-slate-855">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-slate-200 px-4 md:px-6 py-3.5 md:py-4 flex items-center justify-between text-slate-800">
         <div className="flex items-center gap-2.5 sm:gap-3">
           <span className="material-symbols-outlined text-indigo-600 text-[20px] sm:text-[22px]">bubble_chart</span>
           <span className="font-sans text-xs sm:text-sm font-bold tracking-tight">DataViz Center</span>
@@ -110,7 +137,7 @@ export default function DataViz() {
         </div>
         <Link
           to="/projects"
-          className="flex items-center gap-1 px-2.5 py-1.5 sm:gap-1.5 sm:px-3.5 sm:py-1.5 rounded-lg border border-slate-200 text-[10px] sm:text-xs font-sans text-slate-600 hover:bg-slate-100 hover:text-indigo-650 hover:border-indigo-500/40 transition-all"
+          className="flex items-center gap-1 px-2.5 py-1.5 sm:gap-1.5 sm:px-3.5 sm:py-1.5 rounded-lg border border-slate-200 text-[10px] sm:text-xs font-sans text-slate-600 hover:bg-slate-100 hover:text-indigo-600 hover:border-indigo-500/40 transition-all"
         >
           <span className="material-symbols-outlined text-[14px]">arrow_back</span>
           <span className="hidden sm:inline">Back to Portfolio</span>
@@ -174,7 +201,7 @@ export default function DataViz() {
           <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
             <span className="font-label-md text-[11px] text-slate-500 uppercase tracking-wider block mb-1">Active User Sessions</span>
             <p className="font-headline-md text-3xl font-bold text-slate-900">{totalUsersVal.toLocaleString()}</p>
-            <span className="text-[11px] font-bold text-indigo-650 font-mono">LIVE tracking enabled</span>
+            <span className="text-[11px] font-bold text-indigo-600 font-mono">LIVE tracking enabled</span>
           </div>
         </div>
 
@@ -188,29 +215,31 @@ export default function DataViz() {
               <p className="text-xs text-slate-500">Continuous sales growth over the selected timeframe.</p>
             </div>
 
-            <div className="w-full overflow-x-auto flex justify-center py-2">
-              <AreaChart width={680} height={300} data={activePoints} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0} />
-                  </linearGradient>
-                  <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.2} />
-                    <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0.0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e7ff" vertical={false} />
-                <XAxis dataKey="name" stroke="#777587" fontSize={11} fontStyle="JetBrains Mono" tickLine={false} />
-                <YAxis stroke="#777587" fontSize={11} fontStyle="JetBrains Mono" tickLine={false} />
-                <Tooltip
-                  contentStyle={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e2e7ff', fontSize: '12px' }}
-                  labelStyle={{ fontWeight: 'bold', color: '#131b2e' }}
-                />
-                <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
-                <Area type="monotone" dataKey="sales" name="Sales ($)" stroke="#6366f1" strokeWidth={2.5} fillOpacity={1} fill="url(#colorSales)" />
-                <Area type="monotone" dataKey="orders" name="Orders Count" stroke="#8b5cf6" strokeWidth={2.5} fillOpacity={1} fill="url(#colorOrders)" />
-              </AreaChart>
+            <div className="w-full h-[300px] py-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={activePoints} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0} />
+                    </linearGradient>
+                    <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0.0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e7ff" vertical={false} />
+                  <XAxis dataKey="name" stroke="#777587" fontSize={11} fontStyle="JetBrains Mono" tickLine={false} />
+                  <YAxis stroke="#777587" fontSize={11} fontStyle="JetBrains Mono" tickLine={false} />
+                  <Tooltip
+                    contentStyle={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e2e7ff', fontSize: '12px' }}
+                    labelStyle={{ fontWeight: 'bold', color: '#131b2e' }}
+                  />
+                  <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                  <Area type="monotone" dataKey="sales" name="Sales ($)" stroke="#6366f1" strokeWidth={2.5} fillOpacity={1} fill="url(#colorSales)" />
+                  <Area type="monotone" dataKey="orders" name="Orders Count" stroke="#8b5cf6" strokeWidth={2.5} fillOpacity={1} fill="url(#colorOrders)" />
+                </AreaChart>
+              </ResponsiveContainer>
             </div>
           </div>
 
@@ -221,16 +250,18 @@ export default function DataViz() {
               <p className="text-xs text-slate-500 mb-6">Distribution and performance indexes.</p>
             </div>
 
-            <div className="w-full overflow-x-auto flex justify-center py-2">
-              <BarChart width={310} height={240} data={regionData} margin={{ top: 0, right: 0, left: -25, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e7ff" vertical={false} />
-                <XAxis dataKey="name" stroke="#777587" fontSize={10} tickLine={false} />
-                <YAxis stroke="#777587" fontSize={10} tickLine={false} />
-                <Tooltip
-                  contentStyle={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e2e7ff', fontSize: '12px' }}
-                />
-                <Bar dataKey="revenue" name="Revenue ($)" fill="#6366f1" radius={[4, 4, 0, 0]} />
-              </BarChart>
+            <div className="w-full h-[240px] py-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={regionData} margin={{ top: 0, right: 0, left: -25, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e7ff" vertical={false} />
+                  <XAxis dataKey="name" stroke="#777587" fontSize={10} tickLine={false} />
+                  <YAxis stroke="#777587" fontSize={10} tickLine={false} />
+                  <Tooltip
+                    contentStyle={{ background: '#ffffff', borderRadius: '12px', border: '1px solid #e2e7ff', fontSize: '12px' }}
+                  />
+                  <Bar dataKey="revenue" name="Revenue ($)" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
 
             <div className="border-t border-slate-200/60 pt-4 mt-4">
@@ -286,7 +317,7 @@ export default function DataViz() {
               {/* Dynamic Center Text */}
               <div className="absolute flex flex-col items-center justify-center">
                 <span className="text-[10px] text-slate-500 uppercase font-label-md font-bold">Category</span>
-                <span className="text-[13px] font-bold text-indigo-650 truncate max-w-[110px]">{selectedCategory}</span>
+                <span className="text-[13px] font-bold text-indigo-600 truncate max-w-[110px]">{selectedCategory}</span>
               </div>
             </div>
 
@@ -337,8 +368,8 @@ export default function DataViz() {
             </div>
 
             <button
-              onClick={() => alert(`Exporting spreadsheet raw data for category: ${selectedCategory}`)}
-              className="mt-6 w-full sm:w-fit bg-indigo-650 bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-xs font-bold font-label-lg uppercase flex items-center justify-center gap-1.5 hover:bg-indigo-700 transition-colors cursor-pointer"
+              onClick={handleExportLedger}
+              className="mt-6 w-full sm:w-fit bg-indigo-600 text-white px-6 py-2.5 rounded-lg text-xs font-bold font-label-lg uppercase flex items-center justify-center gap-1.5 hover:bg-indigo-700 transition-colors cursor-pointer"
             >
               <span className="material-symbols-outlined text-[16px]">download</span>
               Export Segment Ledger

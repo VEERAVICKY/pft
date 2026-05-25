@@ -322,7 +322,7 @@ export default function RetailStorefront() {
                               loading="lazy"
                             />
                           ) : (
-                            <span className="material-symbols-outlined text-[36px] text-slate-350">
+                            <span className="material-symbols-outlined text-[36px] text-slate-400">
                               shopping_bag
                             </span>
                           )}
@@ -443,20 +443,20 @@ export default function RetailStorefront() {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => updateQuantity(item.id, -1)}
-                            className="w-6 h-6 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50 text-xs cursor-pointer text-slate-650"
+                            className="w-6 h-6 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50 text-xs cursor-pointer text-slate-600"
                           >
                             -
                           </button>
                           <span className="text-xs font-bold font-mono min-w-[12px] text-center text-slate-800">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, 1)}
-                            className="w-6 h-6 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50 text-xs cursor-pointer text-slate-655 text-slate-650"
+                            className="w-6 h-6 border border-slate-200 rounded flex items-center justify-center hover:bg-slate-50 text-xs cursor-pointer text-slate-600"
                           >
                             +
                           </button>
                           <button
                             onClick={() => removeFromCart(item.id)}
-                            className="text-slate-400 hover:text-red-655 hover:text-red-650 transition-colors ml-1 cursor-pointer"
+                            className="text-slate-400 hover:text-red-600 transition-colors ml-1 cursor-pointer"
                           >
                             <span className="material-symbols-outlined text-[16px]">close</span>
                           </button>
@@ -471,15 +471,15 @@ export default function RetailStorefront() {
                 <div className="border-t border-slate-100 pt-6">
                   {/* Pricing summary */}
                   <div className="space-y-2 mb-6">
-                    <div className="flex justify-between text-xs text-slate-505 text-slate-500">
+                    <div className="flex justify-between text-xs text-slate-500">
                       <span>Subtotal</span>
                       <span className="font-mono text-slate-800">${cartSubtotal.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between text-xs text-slate-505 text-slate-500">
+                    <div className="flex justify-between text-xs text-slate-500">
                       <span>Estimated Tax (8%)</span>
                       <span className="font-mono text-slate-800">${cartTax.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between text-xs text-slate-505 text-slate-500">
+                    <div className="flex justify-between text-xs text-slate-500">
                       <span>Shipping</span>
                       <span className="font-mono text-slate-800">{cartShipping === 0 ? 'FREE' : `$${cartShipping.toFixed(2)}`}</span>
                     </div>

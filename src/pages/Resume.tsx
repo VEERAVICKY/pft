@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+// Get your free Web3Forms Access Key from: https://web3forms.com/
+const WEB3FORMS_ACCESS_KEY = "e90f7407-b4a4-4642-a956-cd6e95eb5c0b";
+
 export default function Resume() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,6 +21,38 @@ export default function Resume() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    let subjectText = 'New Feature Inquiry';
+    if (formData.subject === 'hire') subjectText = 'Hiring / Full-time Role';
+    if (formData.subject === 'consult') subjectText = 'UI/UX Implementation';
+    if (formData.subject === 'other') subjectText = 'Other Inquiry';
+
+    // Submit via Web3Forms API
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        name: formData.name,
+        email: formData.email,
+        subject: `Portfolio Contact: ${subjectText} from ${formData.name}`,
+        message: formData.message,
+      })
+    })
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
+      .then(data => {
+        console.log('Message sent successfully via Web3Forms:', data);
+      })
+      .catch(error => {
+        console.error('Failed to send message via Web3Forms:', error);
+      });
+
     setIsSubmitted(true);
   };
 
@@ -221,12 +256,12 @@ export default function Resume() {
 
                 {/* Success Message */}
                 {isSubmitted && (
-                  <div className="absolute inset-0 bg-surface/95 backdrop-blur-md flex flex-col items-center justify-center text-center p-8 z-20 animate-in fade-in duration-300">
+                  <div className="absolute inset-0 bg-surface/95 backdrop-blur-sm flex flex-col items-center justify-center text-center p-8 z-20 animate-in fade-in duration-300">
                     <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6">
                       <span className="material-symbols-outlined text-primary text-[40px]">check_circle</span>
                     </div>
                     <h3 className="text-headline-sm text-on-surface mb-2 font-bold">Transmission Received</h3>
-                    <p className="text-on-surface-variant font-body-md max-w-xs text-sm">
+                    <p className="text-on-surface-variant font-body-md text-sm">
                       Your message has been logged. I'll get back to you within 24 hours.
                     </p>
                     <button
@@ -281,7 +316,7 @@ export default function Resume() {
             </div>
 
             {/* Experience Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto justify-center">
 
               {/* Job 1 */}
               {/* <div className="bg-surface-container-lowest p-8 rounded-2xl flex flex-col border-t-4 border-t-primary aura-shadow">

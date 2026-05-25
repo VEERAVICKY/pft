@@ -73,7 +73,7 @@ export default function RetailOps() {
             {/* Standalone Project Navbar */}
             <nav className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 md:px-6 py-3.5 md:py-4 flex items-center justify-between text-slate-800">
                 <div className="flex items-center gap-2.5 sm:gap-3">
-                    <span className="material-symbols-outlined text-amber-650 text-[20px] sm:text-[22px]">assignment_turned_in</span>
+                    <span className="material-symbols-outlined text-amber-600 text-[20px] sm:text-[22px]">assignment_turned_in</span>
                     <span className="font-sans text-xs sm:text-sm font-bold tracking-tight">RetailOps Portal</span>
                     <span className="bg-amber-100 text-amber-800 text-[10px] font-mono px-2 py-0.5 rounded-full font-bold hidden sm:inline-block">
                         {tasks.length} Active Tickets
@@ -146,7 +146,7 @@ export default function RetailOps() {
                                     value={newTaskTitle}
                                     onChange={(e) => setNewTaskTitle(e.target.value)}
                                     placeholder="e.g. Database health audit"
-                                    className="w-full bg-slate-50 border border-slate-250 rounded-lg p-2.5 text-sm outline-none focus:border-amber-500 transition-colors"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm outline-none focus:border-amber-500 transition-colors"
                                 />
                             </div>
 
@@ -159,7 +159,7 @@ export default function RetailOps() {
                                     value={newTaskAssignee}
                                     onChange={(e) => setNewTaskAssignee(e.target.value)}
                                     placeholder="e.g. Veera Brahmam"
-                                    className="w-full bg-slate-50 border border-slate-250 rounded-lg p-2.5 text-sm outline-none focus:border-amber-500 transition-colors"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm outline-none focus:border-amber-500 transition-colors"
                                 />
                             </div>
 
@@ -170,7 +170,7 @@ export default function RetailOps() {
                                 <select
                                     value={newTaskPriority}
                                     onChange={(e) => setNewTaskPriority(e.target.value as Task['priority'])}
-                                    className="w-full bg-slate-50 border border-slate-250 rounded-lg p-2.5 text-sm outline-none focus:border-amber-500 transition-colors cursor-pointer"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-sm outline-none focus:border-amber-500 transition-colors cursor-pointer"
                                 >
                                     <option value="low">Low Priority</option>
                                     <option value="medium">Medium Priority</option>
@@ -249,7 +249,7 @@ export default function RetailOps() {
                                                     <div className="font-semibold text-slate-900 leading-snug">{task.title}</div>
                                                     <span className="text-[10px] text-slate-400 font-mono">{task.date}</span>
                                                 </td>
-                                                <td className="py-4 text-slate-650 font-medium whitespace-nowrap">{task.assignee}</td>
+                                                <td className="py-4 text-slate-600 font-medium whitespace-nowrap">{task.assignee}</td>
                                                 <td className="py-4 whitespace-nowrap">
                                                     <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-semibold font-label-md border ${task.priority === 'high'
                                                             ? 'bg-red-50 border-red-200 text-red-700'
@@ -274,7 +274,7 @@ export default function RetailOps() {
                                                 <td className="py-4 text-right whitespace-nowrap">
                                                     <button
                                                         onClick={() => handleDeleteTask(task.id)}
-                                                        className="text-slate-400 hover:text-red-650 hover:scale-105 transition-all cursor-pointer"
+                                                        className="text-slate-400 hover:text-red-600 hover:scale-105 transition-all cursor-pointer"
                                                         title="Delete task"
                                                     >
                                                         <span className="material-symbols-outlined text-[18px]">delete</span>

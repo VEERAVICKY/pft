@@ -135,8 +135,8 @@ export default function Admin() {
                         <button
                             onClick={() => { setActiveTab('profile'); setGeneratedKey(null); }}
                             className={`flex-shrink-0 flex items-center justify-center md:justify-start gap-2.5 sm:gap-3 px-4 py-2.5 md:py-3 rounded-xl text-xs font-label-lg font-bold transition-all text-center md:text-left cursor-pointer flex-1 md:flex-initial ${activeTab === 'profile'
-                                    ? 'bg-rose-600 text-white shadow-sm'
-                                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                                ? 'bg-rose-600 text-white shadow-sm'
+                                : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
                                 }`}
                         >
                             <span className="material-symbols-outlined text-[18px]">person</span>
@@ -145,8 +145,8 @@ export default function Admin() {
                         <button
                             onClick={() => { setActiveTab('security'); setGeneratedKey(null); }}
                             className={`flex-shrink-0 flex items-center justify-center md:justify-start gap-2.5 sm:gap-3 px-4 py-2.5 md:py-3 rounded-xl text-xs font-label-lg font-bold transition-all text-center md:text-left cursor-pointer flex-1 md:flex-initial ${activeTab === 'security'
-                                    ? 'bg-rose-600 text-white shadow-sm'
-                                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                                ? 'bg-rose-600 text-white shadow-sm'
+                                : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
                                 }`}
                         >
                             <span className="material-symbols-outlined text-[18px]">security</span>
@@ -155,8 +155,8 @@ export default function Admin() {
                         <button
                             onClick={() => { setActiveTab('api'); setGeneratedKey(null); }}
                             className={`flex-shrink-0 flex items-center justify-center md:justify-start gap-2.5 sm:gap-3 px-4 py-2.5 md:py-3 rounded-xl text-xs font-label-lg font-bold transition-all text-center md:text-left cursor-pointer flex-1 md:flex-initial ${activeTab === 'api'
-                                    ? 'bg-rose-600 text-white shadow-sm'
-                                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                                ? 'bg-rose-600 text-white shadow-sm'
+                                : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
                                 }`}
                         >
                             <span className="material-symbols-outlined text-[18px]">key</span>
@@ -191,8 +191,8 @@ export default function Admin() {
                                                     type="button"
                                                     onClick={() => setAvatar(icon)}
                                                     className={`w-9 h-9 border rounded-lg flex items-center justify-center transition-all cursor-pointer ${avatar === icon
-                                                            ? 'border-rose-600 text-rose-600 bg-rose-50 font-bold shadow-sm'
-                                                            : 'border-[#eaeaea] text-slate-400 hover:text-slate-700 hover:border-slate-300'
+                                                        ? 'border-rose-600 text-rose-600 bg-rose-50 font-bold shadow-sm'
+                                                        : 'border-[#eaeaea] text-slate-400 hover:text-slate-700 hover:border-slate-300'
                                                         }`}
                                                 >
                                                     <span className="material-symbols-outlined text-[18px]">{icon}</span>
@@ -390,7 +390,7 @@ export default function Admin() {
                                         {apiKeys.map((key) => (
                                             <div key={key.id} className="flex justify-between items-center py-4 gap-4">
                                                 <div className="min-w-0">
-                                                    <span className="text-xs font-bold text-slate-850 block truncate">{key.name}</span>
+                                                    <span className="text-xs font-bold text-slate-800 block truncate">{key.name}</span>
                                                     <div className="flex items-center gap-2 mt-0.5">
                                                         <span className="font-mono text-[10px] text-slate-500 font-medium bg-[#fafafa] border border-[#eaeaea] px-1.5 py-0.5 rounded">
                                                             {key.key}
@@ -410,7 +410,7 @@ export default function Admin() {
                                                     </button>
                                                     <button
                                                         onClick={() => handleDeleteKey(key.id)}
-                                                        className="text-slate-400 hover:text-rose-650 hover:text-rose-600 transition-colors cursor-pointer"
+                                                        className="text-slate-400 hover:text-rose-600 transition-colors cursor-pointer"
                                                         title="Revoke Key"
                                                     >
                                                         <span className="material-symbols-outlined text-[18px]">delete</span>
@@ -423,6 +423,8 @@ export default function Admin() {
 
                             </div>
                         )}
+
+
 
                     </div>
 

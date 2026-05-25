@@ -162,7 +162,7 @@ export default function OmniAnalytics() {
               <span className="font-label-md text-label-md text-slate-400 uppercase tracking-wider">Page Views</span>
               <span className="material-symbols-outlined text-cyan-400 text-[20px]">visibility</span>
             </div>
-            <p className="font-headline-md text-headline-md font-bold text-slate-550">{totalViews.toLocaleString()}</p>
+            <p className="font-headline-md text-headline-md font-bold text-slate-100">{totalViews.toLocaleString()}</p>
             <div className="flex items-center gap-1.5 mt-2">
               <span className="text-emerald-500 font-label-md text-[11px] font-bold">↑ 12.4%</span>
               <span className="text-slate-500 font-body-sm text-[11px]">vs last period</span>
@@ -181,7 +181,7 @@ export default function OmniAnalytics() {
               <span className="font-label-md text-label-md text-slate-400 uppercase tracking-wider">Conversions</span>
               <span className="material-symbols-outlined text-cyan-400 text-[20px]">leaderboard</span>
             </div>
-            <p className="font-headline-md text-headline-md font-bold text-slate-550">{totalConversions.toLocaleString()}</p>
+            <p className="font-headline-md text-headline-md font-bold text-slate-100">{totalConversions.toLocaleString()}</p>
             <div className="flex items-center gap-1.5 mt-2">
               <span className="text-emerald-500 font-label-md text-[11px] font-bold">↑ 8.1%</span>
               <span className="text-slate-500 font-body-sm text-[11px]">vs last period</span>
@@ -200,7 +200,7 @@ export default function OmniAnalytics() {
               <span className="font-label-md text-label-md text-slate-400 uppercase tracking-wider">Gross Revenue</span>
               <span className="material-symbols-outlined text-cyan-400 text-[20px]">payments</span>
             </div>
-            <p className="font-headline-md text-headline-md font-bold text-slate-550">${totalRevenue.toLocaleString()}</p>
+            <p className="font-headline-md text-headline-md font-bold text-slate-100">${totalRevenue.toLocaleString()}</p>
             <div className="flex items-center gap-1.5 mt-2">
               <span className="text-emerald-500 font-label-md text-[11px] font-bold">↑ 15.7%</span>
               <span className="text-slate-500 font-body-sm text-[11px]">vs last period</span>
@@ -343,7 +343,7 @@ export default function OmniAnalytics() {
                       <span className="text-slate-200">{source.name}</span>
                       <span className="text-slate-400">{source.value}%</span>
                     </div>
-                    <div className="h-2 bg-slate-950 rounded-full overflow-hidden w-full border border-slate-850">
+                    <div className="h-2 bg-slate-950 rounded-full overflow-hidden w-full border border-slate-800">
                       <div
                         className={`h-full rounded-full transition-all duration-1000 ${source.color}`}
                         style={{ width: `${source.value}%` }}
@@ -370,11 +370,11 @@ export default function OmniAnalytics() {
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-450"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <h3 className="font-headline-sm text-[18px] font-bold text-slate-550">Live Event Stream</h3>
+              <h3 className="font-headline-sm text-[18px] font-bold text-slate-200">Live Event Stream</h3>
             </div>
-            <span className="text-[11px] font-bold font-label-md text-cyan-455 tracking-wider uppercase bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-full">
+            <span className="text-[11px] font-bold font-label-md text-cyan-400 tracking-wider uppercase bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-full">
               System Online
             </span>
           </div>
@@ -382,7 +382,7 @@ export default function OmniAnalytics() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {recentEvents.map((evt) => (
               <div key={evt.id} className="p-4 bg-slate-950/60 rounded-xl border border-slate-900 flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-850 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-cyan-400 flex-shrink-0">
                   <span className="material-symbols-outlined text-[18px]">{evt.icon}</span>
                 </div>
                 <div className="flex flex-col gap-1.5 overflow-hidden">
